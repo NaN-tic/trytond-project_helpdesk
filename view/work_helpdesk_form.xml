@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form string="Works Efforts" col="6">
+    <label name="timesheet_work_name"/>
+    <field name="timesheet_work_name" colspan="3"/>
+    <label name="active"/>
+    <field name="active" xexpand="0"/>
+    <label name="parent"/>
+    <field name="parent"/>
+    <label name="party"/>
+    <field name="party"/>
+    <label name="party_address"/>
+    <field name="party_address"/>
+    <label name="assigned_employees"/>
+    <field name="assigned_employees"/>
+    <label name="tracker"/>
+    <field name="tracker"/>
+    <notebook colspan="8">
+        <page string="General" id="general" col="6">
+            <label name="hours"/>
+            <field name="hours" widget="float_time" float_time="company_work_time"/>
+            <newline/>
+            <separator name="comment" colspan="6"/>
+            <field name="comment" colspan="6"/>
+            <group col="4" colspan="6" id="state_buttons">
+                <group col="4" colspan="4" id="state">
+                    <label name="state"/>
+                    <field name="state"/>
+                    <label name="task_phase"/>
+                    <field name="task_phase"/>
+                </group>
+                <group col="20" colspan="2" id="buttons">
+                </group>
+            </group>
+        </page>
+        <page name="activities">
+            <label name="last_action_date"/>
+            <field name="last_action_date"/>
+            <field name="activities" colspan="4"/>
+        </page>
+        <page string="Allocations" id="allocations"
+            states="{'invisible': Not(Equal(Eval('type'), 'task'))}" >
+            <field name="allocations" colspan="4"/>
+        </page>
+        <page string="Information" id="Information" col="6">
+            <label name="sequence"/>
+            <field name="sequence"/>
+            <label name="company"/>
+            <field name="company"/>
+            <label name="helpdesk"/>
+            <field name="helpdesk"/>
+            <label name="type"/>
+            <field name="type"/>
+        </page>
+    </notebook>
+</form>

@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="project.work.task_phase" id="task_phase1">
+            <field name="name">New</field>
+        </record>
+        <record model="project.work.task_phase" id="task_phase2">
+            <field name="name">In Progress</field>
+        </record>
+        <record model="project.work.task_phase" id="task_phase3">
+            <field name="name">Waiting</field>
+        </record>
+        <record model="project.work.task_phase" id="task_phase4">
+            <field name="name">Finished</field>
+        </record>
+    </data>
+</tryton>
