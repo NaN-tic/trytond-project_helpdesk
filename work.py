@@ -32,7 +32,6 @@ class Work:
         tracker = Tracker.search([('helpdesk', '=', True)])
         return tracker and tracker[0].id
 
-
     def on_change_with_helpdesk(self, name=None):
         return self.tracker.helpdesk if self.tracker else None
 
@@ -54,7 +53,8 @@ class Work:
             })
 
     def check_helpdesk_task_creation(self):
-        if (self.type == 'task' and not (self.parent or self.parent.helpdesk)):
+        if (self.type == 'task' and not (self.parent or
+                self.parent and self.parent.helpdesk)):
             self.raise_user_error('invalid_helpdesk', {
                 'work': self.rec_name,
                 'parent': self.parent.rec_name
