@@ -5,6 +5,7 @@ this repository contains the full copyright notices and license terms. -->
     <data>
         <record model="project.work.task_phase" id="task_phase1">
             <field name="name">New</field>
+            <field name="type">initial</field>
         </record>
         <record model="project.work.task_phase" id="task_phase2">
             <field name="name">In Progress</field>
@@ -14,6 +15,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
         <record model="project.work.task_phase" id="task_phase4">
             <field name="name">Finished</field>
+            <field name="type">final</field>
         </record>
     </data>
 </tryton>
