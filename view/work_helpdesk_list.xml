@@ -6,6 +6,7 @@ this repository contains the full copyright notices and license terms. -->
     <field name="type"/>
     <field name="state"/>
     <field name="task_phase"/>
+    <field name="project_invoice_method"/>
     <field name="hours" widget="float_time"
         float_time="company_work_time"/>
     <field name="invoiced_hours" widget="float_time"

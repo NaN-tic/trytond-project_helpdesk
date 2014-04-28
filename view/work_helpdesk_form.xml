@@ -12,6 +12,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="party"/>
     <label name="party_address"/>
     <field name="party_address"/>
+    <label name="contract"/>
+    <field name="contract"/>
     <label name="assigned_employees"/>
     <field name="assigned_employees"/>
     <label name="tracker"/>
@@ -42,6 +44,28 @@ this repository contains the full copyright notices and license terms. -->
         <page string="Allocations" id="allocations"
             states="{'invisible': Not(Equal(Eval('type'), 'task'))}" >
             <field name="allocations" colspan="4"/>
+        </page>
+        <page string="Invoicing" id="invoicing">
+            <label name="project_invoice_method"/>
+            <field name="project_invoice_method"/>
+            <label name="invoiced_hours"/>
+            <field name="invoiced_hours" widget="float_time"
+                float_time="company_work_time"/>
+            <label name="invoiced_amount"/>
+            <field name="invoiced_amount"/>
+            <label name="hours_to_invoice"/>
+            <field name="hours_to_invoice" widget="float_time"
+                float_time="company_work_time"/>
+
+        </page>
+        <page name="components">
+            <label name="component_categories"/>
+            <field name="component_categories"/>
+            <label name="components"/>
+            <field name="components"/>
+        </page>
+        <page name="codereview">            
+            <field name="codereview" colspan="4"/>
         </page>
         <page string="Information" id="Information" col="6">
             <label name="sequence"/>
