@@ -22,7 +22,7 @@
             <field name="type">form</field>
             <field name="name">work_helpdesk_form</field>
         </record>
-        
+
         <record model="ir.ui.view" id="project_tracker_view_form">
             <field name="model">project.work.tracker</field>
             <field name="inherit" ref="project_tracker.project_tracker_view_form"/>
@@ -55,6 +55,7 @@
             <field name="name">Helpdesk</field>
             <field name="res_model">project.work</field>
             <field name="domain">[('parent', '=', None),('helpdesk', '=', True)]</field>
+            <field name="context">{'helpdesk': True}</field>
         </record>
         <record model="ir.action.act_window.view"
             id="act_project_helpdesk_tree_view1">
@@ -75,6 +76,7 @@
             <field name="name">Projects</field>
             <field name="res_model">project.work</field>
             <field name="domain">[('type', '=', 'project'),('helpdesk', '=', True)]</field>
+            <field name="context">{'helpdesk': True}</field>
         </record>
         <record model="ir.action.act_window.view"
             id="act_project_helpdesk_form_view1">
@@ -95,6 +97,7 @@
             <field name="name">Tasks</field>
             <field name="res_model">project.work</field>
             <field name="domain">[('type', '=', 'task'),('helpdesk', '=', True)]</field>
+            <field name="context">{'helpdesk': True}</field>
         </record>
         <record model="ir.action.act_window.view"
             id="act_task_helpdesk_form_view1">

@@ -3,6 +3,7 @@
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Not, Bool
+from trytond.transaction import Transaction
 
 __all__ = ['Work', 'WorkType']
 __metaclass__ = PoolMeta
@@ -28,9 +29,10 @@ class Work:
 
     @staticmethod
     def default_tracker():
-        Tracker = Pool().get('project.work.tracker')
-        tracker = Tracker.search([('helpdesk', '=', True)])
-        return tracker and tracker[0].id
+        if Transaction().context.get('helpdesk'):
+            Tracker = Pool().get('project.work.tracker')
+            tracker = Tracker.search([('helpdesk', '=', True)])
+            return tracker and tracker[0].id
 
     def on_change_with_helpdesk(self, name=None):
         return self.tracker.helpdesk if self.tracker else None
