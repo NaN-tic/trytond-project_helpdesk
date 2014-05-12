@@ -110,5 +110,11 @@
         </record>
         <menuitem parent="menu_project_helpdesk_tree" action="act_task_helpdesk_form"
             id="menu_task_helpdesk_form"/>
+
+        <record model="ir.ui.view" id="activity_helpdesk_tree_view">
+            <field name="model">activity.activity</field>
+            <field name="type">tree</field>
+            <field name="name">activity_helpdesk_tree</field>
+        </record>
     </data>
 </tryton>
