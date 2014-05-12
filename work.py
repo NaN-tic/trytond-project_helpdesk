@@ -2,7 +2,7 @@
 # this repository contains the full copyright notices and license terms.
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, Not, Bool
+from trytond.pyson import Eval, If
 from trytond.transaction import Transaction
 
 __all__ = ['Work', 'WorkType']
@@ -40,6 +40,20 @@ class Work:
     @classmethod
     def __setup__(cls):
         super(Work, cls).__setup__()
+        if not 'helpdesk' in cls.parent.depends:
+            cls.parent.depends.append('helpdesk')
+            if not cls.parent.domain:
+                cls.parent.domain = []
+            cls.parent.domain.append(
+                If( Eval('helpdesk', False), (
+                        ('helpdesk', '=', True),
+                        ('type', '=', 'project')
+                    ), (
+                        ('helpdesk', '=', False),
+                        ('type', '=', 'project')
+                    )
+                )
+            )
         cls._error_messages.update({
                 'invalid_parent': ('Project "%(work)s" can not be created as '
                     'child of "%s(parent)s", Helpdesk Project must be unique'),
