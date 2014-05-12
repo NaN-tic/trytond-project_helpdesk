@@ -51,43 +51,64 @@
             <field name="domain">[('type', '=', 'task'),('helpdesk', '=', False)]</field>
         </record>
 
-        <record model="ir.action.act_window" id="act_work_tree">
+        <record model="ir.action.act_window" id="act_project_helpdesk_tree">
             <field name="name">Helpdesk</field>
             <field name="res_model">project.work</field>
             <field name="domain">[('parent', '=', None),('helpdesk', '=', True)]</field>
         </record>
         <record model="ir.action.act_window.view"
-            id="act_work_tree_view1">
+            id="act_project_helpdesk_tree_view1">
             <field name="sequence" eval="10"/>
             <field name="view" ref="work_helpdesk_view_tree"/>
-            <field name="act_window" ref="act_work_tree"/>
+            <field name="act_window" ref="act_project_helpdesk_tree"/>
         </record>
         <record model="ir.action.act_window.view"
-            id="act_work_tree_view2">
+            id="act_project_helpdesk_tree_view2">
             <field name="sequence" eval="20"/>
             <field name="view" ref="work_helpdesk_view_form"/>
-            <field name="act_window" ref="act_work_tree"/>
+            <field name="act_window" ref="act_project_helpdesk_tree"/>
         </record>
-        <menuitem parent="project.menu_project" action="act_work_tree"
-            id="menu_helpdesk_tree"/>
-        <record model="ir.action.act_window" id="act_work_list">
-            <field name="name">Helpdesk</field>
+        <menuitem parent="project.menu_project" action="act_project_helpdesk_tree"
+            id="menu_project_helpdesk_tree"/>
+
+        <record model="ir.action.act_window" id="act_project_helpdesk_form">
+            <field name="name">Projects</field>
             <field name="res_model">project.work</field>
-            <field name="domain">[('helpdesk', '=', True)]</field>
+            <field name="domain">[('type', '=', 'project'),('helpdesk', '=', True)]</field>
         </record>
         <record model="ir.action.act_window.view"
-            id="act_work_list_view1">
+            id="act_project_helpdesk_form_view1">
             <field name="sequence" eval="10"/>
             <field name="view" ref="work_helpdesk_view_list"/>
-            <field name="act_window" ref="act_work_list"/>
+            <field name="act_window" ref="act_project_helpdesk_form"/>
         </record>
         <record model="ir.action.act_window.view"
-            id="act_work_list_view2">
+            id="act_project_helpdesk_form_view2">
             <field name="sequence" eval="20"/>
             <field name="view" ref="work_helpdesk_view_form"/>
-            <field name="act_window" ref="act_work_list"/>
+            <field name="act_window" ref="act_project_helpdesk_form"/>
         </record>
-        <menuitem parent="menu_helpdesk_tree" action="act_work_list"
-            id="menu_helpdesk_list"/>
+        <menuitem parent="menu_project_helpdesk_tree" action="act_project_helpdesk_form"
+            id="menu_project_helpdesk_form"/>
+
+        <record model="ir.action.act_window" id="act_task_helpdesk_form">
+            <field name="name">Tasks</field>
+            <field name="res_model">project.work</field>
+            <field name="domain">[('type', '=', 'task'),('helpdesk', '=', True)]</field>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_task_helpdesk_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="work_helpdesk_view_list"/>
+            <field name="act_window" ref="act_task_helpdesk_form"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_task_helpdesk_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="work_helpdesk_view_form"/>
+            <field name="act_window" ref="act_task_helpdesk_form"/>
+        </record>
+        <menuitem parent="menu_project_helpdesk_tree" action="act_task_helpdesk_form"
+            id="menu_task_helpdesk_form"/>
     </data>
 </tryton>
