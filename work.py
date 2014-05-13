@@ -2,7 +2,7 @@
 # this repository contains the full copyright notices and license terms.
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, If
+from trytond.pyson import Eval, If, And
 from trytond.transaction import Transaction
 
 __all__ = ['Work', 'WorkType']
@@ -22,6 +22,12 @@ class Work:
     __name__ = 'project.work'
     helpdesk = fields.Boolean('Helpdesk', select=True,
         on_change_with=['tracker'])
+    contract = fields.Many2One('contract.contract', 'Contract',
+        domain=[('party', '=', Eval('party')), ('state', '!=', 'draft')],
+        states={
+            'required': And(Eval('type') == 'project', Eval('helpdesk', False)),
+            'invisible': Eval('type') != 'project',
+            }, depends=['type', 'helpdesk'])
 
     @staticmethod
     def default_helpdesk():
