@@ -72,7 +72,7 @@ class Work:
         if self.type != 'project':
             return
         if self.helpdesk and self.parent:
-            self.raise_user_error('invalid_parent_state', {
+            self.raise_user_error('invalid_parent', {
                     'work': self.rec_name,
                     'parent': self.parent.rec_name
                     })
