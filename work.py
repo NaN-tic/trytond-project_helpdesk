@@ -62,20 +62,22 @@ class Work:
                 })
 
     def check_helpdesk_project_creation(self):
-        if self.type == 'project' and self.parent and self.parent.helpdesk:
+        if self.type != 'project':
+            return
+        if self.helpdesk and self.parent:
             self.raise_user_error('invalid_parent_state', {
-                'work': self.rec_name,
-                'parent': self.parent.rec_name
-            })
+                    'work': self.rec_name,
+                    'parent': self.parent.rec_name
+                    })
 
     def check_helpdesk_task_creation(self):
-        if (self.type == 'task' and not (self.parent or
-                self.parent and self.parent.helpdesk)):
+        if self.type != 'task':
+            return
+        if self.parent and self.parent.helpdesk != self.helpdesk:
             self.raise_user_error('invalid_helpdesk', {
-                'work': self.rec_name,
-                'parent': self.parent.rec_name
-            })
-
+                    'work': self.rec_name,
+                    'parent': self.parent.rec_name
+                    })
 
     @classmethod
     def validate(cls, works):
