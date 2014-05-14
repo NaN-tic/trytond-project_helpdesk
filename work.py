@@ -70,7 +70,7 @@ class Work:
 
     def check_helpdesk_project_creation(self):
         if self.type != 'project':
-            self.raise_user_error('invalid_parent', {
+            return
         if self.helpdesk and self.parent:
             self.raise_user_error('invalid_parent_state', {
                     'work': self.rec_name,
