@@ -3,6 +3,8 @@
 this repository contains the full copyright notices and license terms. -->
 <tree string="activity" editable="top">
     <field name="type"/>
+    <field name="direction"/>
+    <field name="helpdesk_contact_name"/>
     <field name="subject"/>
     <field name="description"/>
 </tree>

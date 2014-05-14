@@ -18,6 +18,11 @@ this repository contains the full copyright notices and license terms. -->
     <field name="assigned_employees"/>
     <label name="tracker"/>
     <field name="tracker"/>
+    <group col="3" colspan="6" id="helpdesk_buttons" string="Tracker" states="{'invisible': (Eval('type') == 'project')}">
+        <button name="start_work_wizard" string="Start Tracker"/>
+        <button name="stop_work" string="Stop Tracker"/>
+        <button name="cancel_work" string="Cancel Tracker"/>
+    </group>
     <notebook colspan="8">
         <page string="General" id="general" col="6">
             <label name="hours"/>
@@ -36,13 +41,13 @@ this repository contains the full copyright notices and license terms. -->
                 </group>
             </group>
         </page>
-        <page name="activities">
+        <page string="Activities" id="activities" states="{'invisible': (Eval('type') == 'project')}">
             <label name="last_action_date"/>
             <field name="last_action_date"/>
             <label name="channel"/>
             <field name="channel"/>
-            <label name="contact_name"/>
-            <field name="contact_name"/>
+            <label name="helpdesk_contact_name"/>
+            <field name="helpdesk_contact_name"/>
             <field name="activities" colspan="4" view_ids="project_helpdesk.activity_helpdesk_tree_view"/>
         </page>
         <page string="Allocations" id="allocations"
