@@ -5,7 +5,7 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, If, And
 from trytond.transaction import Transaction
 
-__all__ = ['Work', 'WorkType']
+__all__ = ['Work', 'WorkType', 'Activity']
 __metaclass__ = PoolMeta
 
 
@@ -28,6 +28,7 @@ class Work:
             'required': And(Eval('type') == 'project', Eval('helpdesk', False)),
             'invisible': Eval('type') != 'project',
             }, depends=['type', 'helpdesk'])
+    helpdesk_contact_name = fields.Function(fields.Char('Contact Name'), 'get_helpdesk_contact')
 
     @staticmethod
     def default_helpdesk():
@@ -69,9 +70,9 @@ class Work:
 
     def check_helpdesk_project_creation(self):
         if self.type == 'project' and self.parent and self.parent.helpdesk:
-            self.raise_user_error('invalid_parent_state', {
+            self.raise_user_error('invalid_parent', {
                 'work': self.rec_name,
-                'parent': self.parent.rec_name
+                'parent': self.parent.rec_name,
             })
 
     def check_helpdesk_task_creation(self):
@@ -79,9 +80,8 @@ class Work:
                 self.parent and self.parent.helpdesk)):
             self.raise_user_error('invalid_helpdesk', {
                 'work': self.rec_name,
-                'parent': self.parent.rec_name
+                'parent': self.parent.rec_name,
             })
-
 
     @classmethod
     def validate(cls, works):
@@ -90,3 +90,16 @@ class Work:
             work.check_helpdesk_project_creation()
             work.check_helpdesk_task_creation()
 
+    def get_helpdesk_contact(self, name=None):
+        if not self.activities:
+            return None
+        Activity = Pool().get('activity.activity')
+        act = Activity.search([('resource', '=', 'project.work,%s' %
+            self.id)], order=[('dtstart', 'desc')], limit=1)
+        return act and act[0].helpdesk_contact_name or None
+
+
+class Activity:
+    __name__ = 'activity.activity'
+
+    helpdesk_contact_name = fields.Char('Helpdesk Contact Name')
