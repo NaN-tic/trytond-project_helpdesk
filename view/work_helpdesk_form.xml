@@ -51,7 +51,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="activities" colspan="4" view_ids="project_helpdesk.activity_helpdesk_tree_view"/>
         </page>
         <page string="Allocations" id="allocations"
-            states="{'invisible': Not(Equal(Eval('type'), 'task'))}" >
+            states="{'invisible': (Eval('type') == 'project')}" >
             <field name="allocations" colspan="4"/>
         </page>
         <page string="Invoicing" id="invoicing">
@@ -67,7 +67,7 @@ this repository contains the full copyright notices and license terms. -->
                 float_time="company_work_time"/>
 
         </page>
-        <page name="components">
+        <page string="Components" id="components">
             <label name="component_categories"/>
             <field name="component_categories"/>
             <label name="components"/>
