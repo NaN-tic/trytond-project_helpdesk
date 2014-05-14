@@ -5,7 +5,6 @@ from .work import *
 
 def register():
     Pool.register(
-        Activity,
         Work,
         WorkType,
         module='project_helpdesk', type_='model')
