@@ -18,6 +18,7 @@ class WorkType:
     def default_helpdesk():
         return False
 
+
 class Work:
     __name__ = 'project.work'
     helpdesk = fields.Boolean('Helpdesk', select=True,
@@ -25,9 +26,10 @@ class Work:
     contract = fields.Many2One('contract.contract', 'Contract',
         domain=[('party', '=', Eval('party')), ('state', '!=', 'draft')],
         states={
-            'required': And(Eval('type') == 'project', Eval('helpdesk', False)),
+            'required': And(Eval('type') == 'project',
+                Eval('helpdesk', False)),
             'invisible': Eval('type') != 'project',
-            }, depends=['type', 'helpdesk'])
+            }, depends=['type', 'helpdesk', 'party'])
 
     @staticmethod
     def default_helpdesk():
@@ -51,7 +53,7 @@ class Work:
             if not cls.parent.domain:
                 cls.parent.domain = []
             cls.parent.domain.append(
-                If( Eval('helpdesk', False), (
+                If(Eval('helpdesk', False), (
                         ('helpdesk', '=', True),
                         ('type', '=', 'project')
                     ), (
