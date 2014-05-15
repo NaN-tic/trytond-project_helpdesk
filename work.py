@@ -60,6 +60,11 @@ class Work:
                     )
                 )
             )
+        expression = ((Eval('type') == 'project') & Eval('helpdesk'))
+        if 'invisible' in cls.code.states:
+            cls.code.states['invisible'] |= expression
+        else:
+            cls.code.states['invisible'] = expression
         cls._error_messages.update({
                 'invalid_parent': ('Project "%(work)s" can not be created as '
                     'child of "%s(parent)s", Helpdesk Project must be unique'),

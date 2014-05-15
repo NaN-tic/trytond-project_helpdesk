@@ -3,9 +3,11 @@
 this repository contains the full copyright notices and license terms. -->
 <form string="Works Efforts" col="6">
     <label name="timesheet_work_name"/>
-    <field name="timesheet_work_name" colspan="3"/>
+    <field name="timesheet_work_name"/>
     <label name="active"/>
     <field name="active" xexpand="0"/>
+    <label name="code"/>
+    <field name="code"/>
     <label name="parent"/>
     <field name="parent"/>
     <label name="party"/>
