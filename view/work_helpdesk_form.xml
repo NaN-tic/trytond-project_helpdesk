@@ -14,12 +14,12 @@ this repository contains the full copyright notices and license terms. -->
     <field name="party"/>
     <label name="party_address"/>
     <field name="party_address"/>
-    <label name="contract"/>
-    <field name="contract"/>
-    <label name="assigned_employees"/>
-    <field name="assigned_employees"/>
+    <label name="assigned_employee"/>
+    <field name="assigned_employee"/>
     <label name="tracker"/>
     <field name="tracker"/>
+    <label name="contract"/>
+    <field name="contract"/>
     <group col="3" colspan="6" id="helpdesk_buttons" string="Tracker" states="{'invisible': (Eval('type') == 'project')}">
         <button name="start_work_wizard" string="Start Tracker"/>
         <button name="stop_work" string="Stop Tracker"/>
@@ -30,14 +30,24 @@ this repository contains the full copyright notices and license terms. -->
             <label name="hours"/>
             <field name="hours" widget="float_time" float_time="company_work_time"/>
             <newline/>
-            <separator name="comment" colspan="6"/>
-            <field name="comment" colspan="6"/>
+            <group id="descriptions" col="6" colspan="6" yexpand="1" yfill="1">
+                <separator name="problem" colspan="3"/>
+                <separator name="solution" colspan="3"/>
+                <field name="problem" colspan="3"/>
+                <field name="solution" colspan="3"/>
+                <separator name="specification" colspan="2"/>
+                <separator name="comment" colspan="2"/>
+                <separator name="setup_notes" colspan="2"/>
+                <field name="specification" colspan="2"/>
+                <field name="comment" colspan="2"/>
+                <field name="setup_notes" colspan="2"/>
+            </group>
             <group col="4" colspan="6" id="state_buttons">
                 <group col="4" colspan="4" id="state">
-                    <label name="state"/>
-                    <field name="state"/>
                     <label name="task_phase"/>
                     <field name="task_phase"/>
+                    <label name="state"/>
+                    <field name="state"/>
                 </group>
                 <group col="20" colspan="2" id="buttons">
                 </group>
@@ -51,10 +61,6 @@ this repository contains the full copyright notices and license terms. -->
             <label name="contact_name"/>
             <field name="contact_name"/>
             <field name="activities" colspan="4" view_ids="project_helpdesk.activity_helpdesk_tree_view"/>
-        </page>
-        <page string="Allocations" id="allocations"
-            states="{'invisible': (Eval('type') == 'project')}" >
-            <field name="allocations" colspan="4"/>
         </page>
         <page string="Invoicing" id="invoicing">
             <label name="project_invoice_method"/>

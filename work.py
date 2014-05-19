@@ -62,11 +62,20 @@ class Work:
                     )
                 )
             )
-        expression = ((Eval('type') == 'project') & Eval('helpdesk'))
+        expr_project = ((Eval('type') == 'project') & Eval('helpdesk'))
+        expr_task = ((Eval('type') == 'task') & Eval('helpdesk'))
         if 'invisible' in cls.code.states:
-            cls.code.states['invisible'] |= expression
+            cls.code.states['invisible'] |= expr_project
         else:
-            cls.code.states['invisible'] = expression
+            cls.code.states['invisible'] = expr_project
+        if 'invisible' in cls.assigned_employee.states:
+            cls.assigned_employee.states['invisible'] |= expr_project
+        else:
+            cls.assigned_employee.states['invisible'] = expr_project
+        if 'required' in cls.assigned_employee.states:
+            cls.assigned_employee.states['required'] |= expr_task
+        else:
+            cls.assigned_employee.states['required'] = expr_task
         cls._error_messages.update({
                 'invalid_parent': ('Project "%(work)s" can not be created as '
                     'child of "%s(parent)s", Helpdesk Project must be unique'),
