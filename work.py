@@ -30,6 +30,10 @@ class Work:
                 Eval('helpdesk', False)),
             'invisible': Eval('type') != 'project',
             }, depends=['type', 'helpdesk', 'party'])
+    activities = fields.One2Many('activity.activity', 'resource',
+        'Activities', context={
+            'opportunity_party': Eval('party'),
+            }, depends=['party'])
 
     @staticmethod
     def default_helpdesk():

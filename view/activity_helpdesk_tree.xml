@@ -4,7 +4,8 @@ this repository contains the full copyright notices and license terms. -->
 <tree string="activity" editable="top">
     <field name="type"/>
     <field name="direction"/>
-    <field name="party"/>
+    <field name="main_contact"/>
     <field name="subject"/>
     <field name="description"/>
+    <field name="employee"/>
 </tree>
