@@ -90,6 +90,25 @@
             <field name="view" ref="work_helpdesk_view_form"/>
             <field name="act_window" ref="act_project_helpdesk_form"/>
         </record>
+        <!-- Tabs state project -->
+        <record model="ir.action.act_window.domain" id="act_project_helpdesk_form_domain_opened">
+            <field name="name">Opened</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain">[('state', '=', 'opened')]</field>
+            <field name="act_window" ref="act_project_helpdesk_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_project_helpdesk_form_domain_done">
+            <field name="name">Done</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain">[('state', '=', 'done')]</field>
+            <field name="act_window" ref="act_project_helpdesk_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_project_helpdesk_form_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_project_helpdesk_form"/>
+        </record>
         <menuitem parent="menu_project_helpdesk_tree" action="act_project_helpdesk_form"
             id="menu_project_helpdesk_form"/>
 
@@ -109,6 +128,25 @@
             id="act_task_helpdesk_form_view2">
             <field name="sequence" eval="20"/>
             <field name="view" ref="work_helpdesk_view_form"/>
+            <field name="act_window" ref="act_task_helpdesk_form"/>
+        </record>
+        <!-- Tabs state task -->
+        <record model="ir.action.act_window.domain" id="act_task_helpdesk_form_domain_opened">
+            <field name="name">Opened</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain">[('state', '=', 'opened')]</field>
+            <field name="act_window" ref="act_task_helpdesk_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_task_helpdesk_form_domain_done">
+            <field name="name">Done</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain">[('state', '=', 'done')]</field>
+            <field name="act_window" ref="act_task_helpdesk_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_task_helpdesk_form_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
             <field name="act_window" ref="act_task_helpdesk_form"/>
         </record>
         <menuitem parent="menu_project_helpdesk_tree" action="act_task_helpdesk_form"
