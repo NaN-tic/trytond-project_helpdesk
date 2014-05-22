@@ -3,7 +3,7 @@
 this repository contains the full copyright notices and license terms. -->
 <tree string="Works Efforts">
     <field name="rec_name"/>
-    <field name="type"/>
+    <field name="parent"/>
     <field name="state"/>
     <field name="task_phase"/>
     <field name="project_invoice_method"/>
