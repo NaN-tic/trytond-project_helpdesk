@@ -17,6 +17,14 @@ class Activity:
                 ], depends=['allowed_contacts']), 'get_main_contact',
                 setter='set_main_contact')
 
+    @classmethod
+    def __setup__(cls):
+        super(Activity, cls).__setup__()
+        # Add Internal to activity type
+        item = ('internal', 'Internal')
+        if item not in cls.type.selection:
+            cls.type.selection.append(item)
+
     def get_main_contact(self, name):
         if self.contacts:
             return self.contacts[0].id
