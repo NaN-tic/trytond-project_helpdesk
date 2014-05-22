@@ -8,4 +8,6 @@ this repository contains the full copyright notices and license terms. -->
     <field name="subject"/>
     <field name="description"/>
     <field name="employee"/>
+
+    <field name="party" tree_invisible="1"/>
 </tree>
