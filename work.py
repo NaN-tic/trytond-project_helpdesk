@@ -23,13 +23,6 @@ class Work:
     __name__ = 'project.work'
     helpdesk = fields.Boolean('Helpdesk', select=True,
         on_change_with=['tracker'])
-    contract = fields.Many2One('contract.contract', 'Contract',
-        domain=[('party', '=', Eval('party')), ('state', '!=', 'draft')],
-        states={
-            'required': And(Eval('type') == 'project',
-                Eval('helpdesk', False)),
-            'invisible': Eval('type') != 'project',
-            }, depends=['type', 'helpdesk', 'party'])
     activities = fields.One2Many('activity.activity', 'resource',
         'Activities', context={
             'opportunity_party': Eval('party'),
