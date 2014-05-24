@@ -24,6 +24,10 @@ class Activity:
         item = ('internal', 'Internal')
         if item not in cls.type.selection:
             cls.type.selection.append(item)
+        cls._error_messages.update({
+                'missing_party': ('You have selected to create a task, in this'
+                ' case you have to specify the party.'),
+                })
 
     def get_main_contact(self, name):
         if self.contacts:
@@ -43,3 +47,64 @@ class Activity:
                         'activity': activity.id,
                         })
             Contact.create(to_create)
+
+    @classmethod
+    def create_resource_task(cls, vals, resource, activity=None):
+        party = vals.get('party') or (activity and activity.party and
+            activity.party.id) or None
+        subject = vals.get('subject') or (activity and activity.subject) or ""
+        description = vals.get('description') or (activity and
+            activity.description) or ""
+        employee = vals.get('employee') or (activity and activity.employee and
+            activity.employee.id) or None
+        if not party:
+            cls.raise_user_error('missing_party')
+        Work = Pool().get(resource[0])
+        project = Work.search([
+                ('party', '=', party),
+                ('helpdesk', '=', True),
+                ('type', '=', 'project'),
+                ], order=[])
+        if project:
+            Tracker = Pool().get('project.work.tracker')
+            tracker = Tracker.search([('helpdesk', '=', True)])
+            task_vals = {
+                'timesheet_work_name': subject,
+                'problem': description,
+                'parent': project[0].id,
+                'party': party,
+                'assigned_employee': employee,
+                'tracker': tracker and tracker[0].id or None,
+                'helpdesk': True,
+                'type': 'task',
+            }
+            task = Work.create([task_vals])
+            resource[1] = str(task[0].id)
+            return ",".join(r for r in resource)
+        return False
+
+    @classmethod
+    def create(cls, vlist):
+        for vals in vlist:
+            if vals.get('resource'):
+                resource = vals['resource'].split(',')
+                if resource[0] == 'project.work' and resource[1] == '-1':
+                    resource = cls.create_resource_task(vals, resource)
+                    if resource:
+                        vals['resource'] = resource
+        return super(Activity, cls).create(vlist)
+
+    @classmethod
+    def write(cls, activities, vals):
+        super(Activity, cls).write(activities, vals)
+        if vals.get('resource'):
+            resource = vals['resource'].split(',')
+            if resource[0] == 'project.work' and resource[1] == '-1':
+                for activity in activities:
+                    resource = cls.create_resource_task(vals, resource,
+                        activity)
+                    if resource:
+                        vals['resource'] = resource
+                        super(Activity, cls).write([activity], vals)
+                return
+        return super(Activity, cls).write(activities, vals)
