@@ -49,7 +49,7 @@ class Activity:
             Contact.create(to_create)
 
     @classmethod
-    def create_resource_task(cls, vals, resource, activity=None):
+    def create_resource_task(cls, vals, model, activity=None):
         party = vals.get('party') or (activity and activity.party and
             activity.party.id) or None
         subject = vals.get('subject') or (activity and activity.subject) or ""
@@ -59,7 +59,7 @@ class Activity:
             activity.employee.id) or None
         if not party:
             cls.raise_user_error('missing_party')
-        Work = Pool().get(resource[0])
+        Work = Pool().get(model)
         project = Work.search([
                 ('party', '=', party),
                 ('helpdesk', '=', True),
@@ -79,17 +79,17 @@ class Activity:
                 'type': 'task',
             }
             task = Work.create([task_vals])
-            resource[1] = str(task[0].id)
-            return ",".join(r for r in resource)
+            new_id = str(task[0].id)
+            return "%s,%s" % (model, new_id)
         return False
 
     @classmethod
     def create(cls, vlist):
         for vals in vlist:
             if vals.get('resource'):
-                resource = vals['resource'].split(',')
-                if resource[0] == 'project.work' and resource[1] == '-1':
-                    resource = cls.create_resource_task(vals, resource)
+                model, id = vals['resource'].split(',')
+                if model == 'project.work' and id == '-1':
+                    resource = cls.create_resource_task(vals, model)
                     if resource:
                         vals['resource'] = resource
         return super(Activity, cls).create(vlist)
@@ -98,11 +98,10 @@ class Activity:
     def write(cls, activities, vals):
         super(Activity, cls).write(activities, vals)
         if vals.get('resource'):
-            resource = vals['resource'].split(',')
-            if resource[0] == 'project.work' and resource[1] == '-1':
+            model, id = vals['resource'].split(',')
+            if model == 'project.work' and id == '-1':
                 for activity in activities:
-                    resource = cls.create_resource_task(vals, resource,
-                        activity)
+                    resource = cls.create_resource_task(vals, model, activity)
                     if resource:
                         vals['resource'] = resource
                         super(Activity, cls).write([activity], vals)
