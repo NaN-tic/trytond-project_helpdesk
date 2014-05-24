@@ -2,7 +2,7 @@
 # this repository contains the full copyright notices and license terms.
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, If, And
+from trytond.pyson import Eval, If
 from trytond.transaction import Transaction
 
 __all__ = ['Work', 'WorkType']
@@ -60,7 +60,6 @@ class Work:
                 )
             )
         expr_project = ((Eval('type') == 'project') & Eval('helpdesk'))
-        expr_task = ((Eval('type') == 'task') & Eval('helpdesk'))
         if 'invisible' in cls.code.states:
             cls.code.states['invisible'] |= expr_project
         else:
@@ -69,10 +68,6 @@ class Work:
             cls.assigned_employee.states['invisible'] |= expr_project
         else:
             cls.assigned_employee.states['invisible'] = expr_project
-        if 'required' in cls.assigned_employee.states:
-            cls.assigned_employee.states['required'] |= expr_task
-        else:
-            cls.assigned_employee.states['required'] = expr_task
         cls._error_messages.update({
                 'invalid_parent': ('Project "%(work)s" can not be created as '
                     'child of "%s(parent)s", Helpdesk Project must be unique'),
