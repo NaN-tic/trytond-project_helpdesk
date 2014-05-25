@@ -18,13 +18,15 @@ this repository contains the full copyright notices and license terms. -->
     <field name="assigned_employee"/>
     <label name="tracker"/>
     <field name="tracker"/>
-    <group col="3" colspan="6" id="helpdesk_buttons" string="Tracker" states="{'invisible': (Eval('type') == 'project')}">
+    <group col="3" colspan="6" id="helpdesk_buttons" string="Tracker"
+        states="{'invisible': (Eval('type') == 'project')}">
         <button name="start_work_wizard" string="Start Tracker"/>
         <button name="stop_work" string="Stop Tracker"/>
         <button name="cancel_work" string="Cancel Tracker"/>
     </group>
     <notebook colspan="8">
-        <page string="Activities" id="activities" states="{'invisible': (Eval('type') == 'project')}">
+        <page string="Activities" id="activities"
+            states="{'invisible': (Eval('type') == 'project')}">
             <group id="activity_information" col="6" colspan="4">
                 <label name="last_action_date"/>
                 <field name="last_action_date"/>
@@ -33,12 +35,15 @@ this repository contains the full copyright notices and license terms. -->
                 <label name="contact_name"/>
                 <field name="contact_name"/>
             </group>
-            <field name="activities" colspan="4" view_ids="project_helpdesk.activity_helpdesk_tree_view"/>
+            <field name="activities" colspan="4"
+                view_ids="project_helpdesk.activity_helpdesk_tree_view"/>
         </page>
         <page string="General" id="general" col="6">
             <label name="hours"/>
-            <field name="hours" widget="float_time" float_time="company_work_time"/>
-            <group id="nvoice" col="4" colspan="4" states="{'invisible': (Eval('type') != 'project')}">
+            <field name="hours" widget="float_time"
+                float_time="company_work_time"/>
+            <group id="nvoice" col="4" colspan="4"
+                states="{'invisible': (Eval('type') != 'project')}">
                 <label name="project_invoice_method"/>
                 <field name="project_invoice_method"/>
                 <label name="invoice_standalone"/>
@@ -65,11 +70,16 @@ this repository contains the full copyright notices and license terms. -->
                     <field name="state"/>
                 </group>
                 <group col="20" colspan="2" id="buttons">
-                    <button name="open" string="Open" icon="tryton-go-previous"/>
+                    <button name="open" string="Open"
+                        icon="tryton-go-previous"/>
                     <button name="done" string="Done" icon="tryton-go-next"/>
                     <button string="Invoice" name="invoice"/>
                 </group>
             </group>
+        </page>
+        <page string="Children" id="children"
+              states="{'invisible': Not(Equal(Eval('type'), 'project'))}">
+              <field name="children" colspan="4"/>
         </page>
         <page string="Contacts" id="contacts">
     	    <field name="contacts" colspan="4"/>
