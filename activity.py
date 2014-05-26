@@ -77,6 +77,7 @@ class Activity:
                 'tracker': tracker and tracker[0].id or None,
                 'helpdesk': True,
                 'type': 'task',
+                'project_invoice_method': 'hours',
             }
             task = Work.create([task_vals])
             new_id = str(task[0].id)
