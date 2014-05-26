@@ -39,6 +39,11 @@ class Work:
             tracker = Tracker.search([('helpdesk', '=', True)])
             return tracker and tracker[0].id
 
+    @staticmethod
+    def default_project_invoice_method():
+        if Transaction().context.get('helpdesk'):
+            return 'hours'
+
     def on_change_with_helpdesk(self, name=None):
         return self.tracker.helpdesk if self.tracker else None
 
