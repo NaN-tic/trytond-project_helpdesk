@@ -46,6 +46,7 @@ class Work:
     def default_project_invoice_method():
         if Transaction().context.get('helpdesk'):
             return 'hours'
+        return 'to_decide'
 
     def on_change_with_helpdesk(self, name=None):
         return self.tracker.helpdesk if self.tracker else None
