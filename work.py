@@ -107,11 +107,12 @@ class Work:
                     })
 
     def get_project_remainig_hours(self, name):
-        
+        result = None
         if self.parent:
-            return self.parent.total_effort - self.parent.hours
+            result = self.parent.total_effort - self.parent.hours
         else:
-            return self.total_effort - self.hours
+            result = self.total_effort - self.hours
+        return result >= 0 and result or None
 
     @classmethod
     def validate(cls, works):
