@@ -18,7 +18,7 @@ this repository contains the full copyright notices and license terms. -->
     <field name="assigned_employee"/>
     <label name="tracker"/>
     <field name="tracker"/>
-    <group id="nvoice" col="12" colspan="4">
+    <group id="nvoice" col="10" colspan="4">
         <label name="hours"/>
         <field name="hours" widget="float_time"
             float_time="company_work_time"/>
