@@ -27,6 +27,9 @@ class Work:
         'Activities', context={
             'opportunity_party': Eval('party'),
             }, depends=['party'])
+    project_remaining_hours = fields.Function(
+        fields.Float('Work Remaining Hours', digits=(16, 2)),
+        'get_project_remainig_hours')
 
     @staticmethod
     def default_helpdesk():
@@ -65,6 +68,7 @@ class Work:
                 )
             )
         expr_project = ((Eval('type') == 'project') & Eval('helpdesk'))
+        expr_helpdesk_task = ((Eval('type') == 'task') & Eval('helpdesk'))
         if 'invisible' in cls.code.states:
             cls.code.states['invisible'] |= expr_project
         else:
@@ -73,6 +77,10 @@ class Work:
             cls.assigned_employee.states['invisible'] |= expr_project
         else:
             cls.assigned_employee.states['invisible'] = expr_project
+        if 'invisible' in cls.effort.states:
+            cls.effort.states['invisible'] |= expr_helpdesk_task
+        else:
+            cls.effort.states['invisible'] = expr_helpdesk_task
         cls._error_messages.update({
                 'invalid_parent': ('Project "%(work)s" can not be created as '
                     'child of "%s(parent)s", Helpdesk Project must be unique'),
@@ -97,6 +105,13 @@ class Work:
                     'work': self.rec_name,
                     'parent': self.parent.rec_name
                     })
+
+    def get_project_remainig_hours(self, name):
+        
+        if self.parent:
+            return self.parent.total_effort - self.parent.hours
+        else:
+            return self.total_effort - self.hours
 
     @classmethod
     def validate(cls, works):

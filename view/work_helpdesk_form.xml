@@ -18,7 +18,7 @@ this repository contains the full copyright notices and license terms. -->
     <field name="assigned_employee"/>
     <label name="tracker"/>
     <field name="tracker"/>
-    <group id="nvoice" col="6" colspan="4">
+    <group id="nvoice" col="12" colspan="4">
         <label name="hours"/>
         <field name="hours" widget="float_time"
             float_time="company_work_time"/>
@@ -26,6 +26,11 @@ this repository contains the full copyright notices and license terms. -->
         <field name="project_invoice_method"/>
         <label name="invoice_standalone"/>
         <field name="invoice_standalone"/>
+        <label name="effort"/>
+        <field name="effort" widget="float_time" float_time="company_work_time"/>
+        <label name="project_remaining_hours"/>
+    	<field name="project_remaining_hours" widget="float_time"
+        	float_time="company_work_time" sum="Work Remaining Hours"/>
     </group>
     <group col="3" colspan="6" id="helpdesk_buttons" string="Tracker"
         states="{'invisible': (Eval('type') == 'project')}">
