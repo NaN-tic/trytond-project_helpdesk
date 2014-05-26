@@ -18,6 +18,15 @@ this repository contains the full copyright notices and license terms. -->
     <field name="assigned_employee"/>
     <label name="tracker"/>
     <field name="tracker"/>
+    <group id="nvoice" col="6" colspan="4">
+        <label name="hours"/>
+        <field name="hours" widget="float_time"
+            float_time="company_work_time"/>
+        <label name="project_invoice_method"/>
+        <field name="project_invoice_method"/>
+        <label name="invoice_standalone"/>
+        <field name="invoice_standalone"/>
+    </group>
     <group col="3" colspan="6" id="helpdesk_buttons" string="Tracker"
         states="{'invisible': (Eval('type') == 'project')}">
         <button name="start_work_wizard" string="Start Tracker"/>
@@ -39,17 +48,6 @@ this repository contains the full copyright notices and license terms. -->
                 view_ids="project_helpdesk.activity_helpdesk_tree_view"/>
         </page>
         <page string="General" id="general" col="6">
-            <label name="hours"/>
-            <field name="hours" widget="float_time"
-                float_time="company_work_time"/>
-            <group id="nvoice" col="4" colspan="4"
-                states="{'invisible': (Eval('type') != 'project')}">
-                <label name="project_invoice_method"/>
-                <field name="project_invoice_method"/>
-                <label name="invoice_standalone"/>
-                <field name="invoice_standalone"/>
-            </group>
-            <newline/>
             <group id="descriptions" col="6" colspan="6" yexpand="1" yfill="1">
                 <separator name="problem" colspan="3"/>
                 <separator name="solution" colspan="3"/>
@@ -85,8 +83,6 @@ this repository contains the full copyright notices and license terms. -->
     	    <field name="contacts" colspan="4"/>
         </page>
         <page string="Invoicing" id="invoicing">
-            <label name="project_invoice_method"/>
-            <field name="project_invoice_method"/>
             <label name="invoiced_hours"/>
             <field name="invoiced_hours" widget="float_time"
                 float_time="company_work_time"/>
