@@ -30,6 +30,9 @@ class Work:
     project_remaining_hours = fields.Function(
         fields.Float('Work Remaining Hours', digits=(16, 2)),
         'get_project_remainig_hours')
+    attachments = fields.Function(fields.One2Many('ir.attachment', None,
+            'Attachments', on_change_with=['activity']),
+        'on_change_with_attachments')
 
     @staticmethod
     def default_helpdesk():
@@ -50,6 +53,20 @@ class Work:
 
     def on_change_with_helpdesk(self, name=None):
         return self.tracker.helpdesk if self.tracker else None
+
+    def on_change_with_attachments(self, name=None):
+        Attachment = Pool().get('ir.attachment')
+        attachs = Attachment.search([
+                ('resource', 'like', str(self))])
+        if attachs:
+            attachs = [a.id for a in attachs]
+        if self.activities:
+            for activity in self.activities:
+                activity_attachs = Attachment.search([
+                        ('resource', 'ilike', str(activity))])
+                if activity_attachs:
+                    attachs.extend([a.id for a in activity_attachs])
+        return attachs or None
 
     @classmethod
     def __setup__(cls):

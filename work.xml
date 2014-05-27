@@ -157,5 +157,11 @@
             <field name="type">tree</field>
             <field name="name">activity_helpdesk_tree</field>
         </record>
+
+        <record model="ir.ui.view" id="attachments_helpdesk_tree_view">
+            <field name="model">ir.attachment</field>
+            <field name="type">tree</field>
+            <field name="name">attachments_helpdesk_tree</field>
+        </record>
     </data>
 </tryton>

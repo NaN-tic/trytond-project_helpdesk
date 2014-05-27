@@ -53,17 +53,19 @@ this repository contains the full copyright notices and license terms. -->
                 view_ids="project_helpdesk.activity_helpdesk_tree_view"/>
         </page>
         <page string="General" id="general" col="6">
-            <group id="descriptions" col="6" colspan="6" yexpand="1" yfill="1">
-                <separator name="problem" colspan="3"/>
-                <separator name="solution" colspan="3"/>
-                <field name="problem" colspan="3"/>
-                <field name="solution" colspan="3"/>
+            <group id="descriptions" col="2" colspan="4" yexpand="1" yfill="1">
+                <separator name="problem" />
+                <separator name="solution"/>
+                <field name="problem"/>
+                <field name="solution"/>
+                <separator name="comment"/>
+                <separator name="setup_notes"/>
+                <field name="comment"/>
+                <field name="setup_notes"/>
+            </group>
+            <group id="descriptions2" col="2" colspan="2" yexpand="1" yfill="1">
                 <separator name="specification" colspan="2"/>
-                <separator name="comment" colspan="2"/>
-                <separator name="setup_notes" colspan="2"/>
                 <field name="specification" colspan="2"/>
-                <field name="comment" colspan="2"/>
-                <field name="setup_notes" colspan="2"/>
             </group>
             <group col="4" colspan="6" id="state_buttons">
                 <group col="4" colspan="2" id="state">
@@ -81,8 +83,8 @@ this repository contains the full copyright notices and license terms. -->
             </group>
         </page>
         <page string="Children" id="children"
-              states="{'invisible': Not(Equal(Eval('type'), 'project'))}">
-              <field name="children" colspan="4"/>
+            states="{'invisible': Not(Equal(Eval('type'), 'project'))}">
+            <field name="children" colspan="4"/>
         </page>
         <page string="Contacts" id="contacts">
     	    <field name="contacts" colspan="4"/>
@@ -104,7 +106,7 @@ this repository contains the full copyright notices and license terms. -->
             <label name="components"/>
             <field name="components"/>
         </page>
-        <page name="codereview">            
+        <page name="codereview">
             <field name="codereview" colspan="4"/>
         </page>
         <page string="Information" id="Information" col="6">
@@ -116,6 +118,11 @@ this repository contains the full copyright notices and license terms. -->
             <field name="helpdesk"/>
             <label name="type"/>
             <field name="type"/>
+        </page>
+        <page string="Attachments" id="attachments" col="6"
+            states="{'invisible': Equal(Eval('type'), 'project')}">
+            <field name="attachments"
+                view_ids="project_helpdesk.attachments_helpdesk_tree_view"/>
         </page>
     </notebook>
 </form>
