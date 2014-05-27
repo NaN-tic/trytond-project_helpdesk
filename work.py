@@ -110,9 +110,9 @@ class Work:
     def get_project_remainig_hours(self, name):
         result = None
         if self.parent:
-            result = self.parent.total_effort - self.parent.hours
+            result = (self.parent.total_effort or 0) - (self.parent.hours or 0)
         else:
-            result = self.total_effort - self.hours
+            result = (self.total_effort or 0) - (self.hours or 0)
         return result >= 0 and result or None
 
     @classmethod
