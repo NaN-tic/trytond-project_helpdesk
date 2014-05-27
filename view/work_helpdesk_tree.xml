@@ -12,7 +12,10 @@ this repository contains the full copyright notices and license terms. -->
         float_time="company_work_time"/>
     <field name="hours_to_invoice" widget="float_time"
             float_time="company_work_time"/>
+    <field name="effort" widget="float_time"
+            float_time="company_work_time"/>
 
     <field name="active" tree_invisible="1"/>
+    <field name="assigned_employee" tree_invisible="1"/>
     <field name="children" tree_invisible="1"/>
 </tree>

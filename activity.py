@@ -37,7 +37,7 @@ class Activity:
     def set_main_contact(cls, activities, name, value):
         Contact = Pool().get('activity.activity-party.party')
         contacts = [contact for activity in activities
-                    for contact in activity.contacts ]
+            for contact in activity.contacts]
         Contact.delete(contacts)
         if value:
             to_create = []
