@@ -61,10 +61,12 @@ class Work:
             cls.parent.domain.append(
                 If(Eval('helpdesk', False), (
                         ('helpdesk', '=', True),
-                        ('type', '=', 'project')
+                        ('type', '=', 'project'),
+                        ('state', '!=', 'done'),
                     ), (
                         ('helpdesk', '=', False),
-                        ('type', '=', 'project')
+                        ('type', '=', 'project'),
+                        ('state', '!=', 'done'),
                     )
                 )
             )
