@@ -97,10 +97,6 @@ class Work:
             cls.assigned_employee.states['invisible'] |= expr_project
         else:
             cls.assigned_employee.states['invisible'] = expr_project
-        if 'invisible' in cls.effort.states:
-            cls.effort.states['invisible'] |= expr_helpdesk_task
-        else:
-            cls.effort.states['invisible'] = expr_helpdesk_task
         cls._error_messages.update({
                 'invalid_parent': ('Project "%(work)s" can not be created as '
                     'child of "%s(parent)s", Helpdesk Project must be unique'),
@@ -129,9 +125,9 @@ class Work:
     def get_project_remainig_hours(self, name):
         result = None
         if self.parent:
-            result = (self.parent.total_effort or 0) - (self.parent.hours or 0)
+            result = (self.parent.effort or 0) - (self.parent.hours or 0)
         else:
-            result = (self.total_effort or 0) - (self.hours or 0)
+            result = (self.effort or 0) - (self.hours or 0)
         return result >= 0 and result or None
 
     @classmethod
