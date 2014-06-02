@@ -34,6 +34,17 @@ class Work:
             'Attachments', on_change_with=['activity']),
         'on_change_with_attachments')
 
+
+    def get_contact(self, name):
+        if not self.activities:
+            return None
+        Activity = Pool().get('activity.activity')
+        act = Activity.search([('resource', '=', 'project.work,%s' %
+            self.id), ('direction', '=', 'incoming')],
+            order=[('dtstart', 'asc')], limit=1)
+        return act and act[0].main_contact and act[0].main_contact  .name or ''
+
+
     @staticmethod
     def default_helpdesk():
         return False
