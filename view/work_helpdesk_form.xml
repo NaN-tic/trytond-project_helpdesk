@@ -41,13 +41,15 @@ this repository contains the full copyright notices and license terms. -->
     <notebook colspan="8">
         <page string="Activities" id="activities"
             states="{'invisible': (Eval('type') == 'project')}">
-            <group id="activity_information" col="6" colspan="4">
+            <group id="activity_information" col="8" colspan="4">
                 <label name="last_action_date"/>
                 <field name="last_action_date"/>
                 <label name="channel"/>
                 <field name="channel"/>
                 <label name="contact_name"/>
                 <field name="contact_name"/>
+                <label name="actual_finish_date"/>
+                <field name="actual_finish_date"/>
             </group>
             <field name="activities" colspan="4"
                 view_ids="project_helpdesk.activity_helpdesk_tree_view"/>
