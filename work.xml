@@ -140,7 +140,13 @@
         <record model="ir.action.act_window.domain" id="act_task_helpdesk_form_domain_done">
             <field name="name">Done</field>
             <field name="sequence" eval="20"/>
-            <field name="domain">[('state', '=', 'done')]</field>
+            <field name="domain">[('state', '=', 'done'), ('invoice_line', '=', None)]</field>
+            <field name="act_window" ref="act_task_helpdesk_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_task_helpdesk_form_domain_invoide">
+            <field name="name">Invoiced</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain">[('state', '=', 'done'), ('invoice_line', '!=', None)]</field>
             <field name="act_window" ref="act_task_helpdesk_form"/>
         </record>
         <record model="ir.action.act_window.domain" id="act_task_helpdesk_form_domain_all">
